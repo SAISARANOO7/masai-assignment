@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    .data{
+        display: flex;
+        margin: auto;
+        width:50%;
+        justify-content:space-between ;
+    }
+    .data > div{
+        border: 1px solid green;
+        padding: 30px;
+    }
+    .cont{
+        margin: auto;
+        width:70%;
+        margin-top: 40px;
+    }
+    #score{
+        color:blue;
+        font-size: 18px;
+    }
+    .keys{
+        display: grid;
+        grid-template-columns: repeat(3,40px);
+        gap:10px;
+        justify-content: center;
+    }
+</style>
+
+
+<body>
+    <div class = "data">
+        <div id="min" style="background-color: red;" font-width:5px</div> 
+        <div id="min" style="background-color: red;" font-width:5px </div> 
+
+    </div> 
+
+    <div class="cont">
+        <div id="score"></div>
+        <div class="keys">
+            <button>0</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+
+        </div>
+        </div>
+        <button id="enter">Enter</button>
+    
+</body>
+</html>
+
+<script>
+    let min = document.getElementById("min");
+    let max = document.getElementById("max");
+    let score = document.getElementById("score");
+
+    let keys = document.getElementById(".keys > button");
+    let enter =  document.getElementById("enter");
+
+    for(let i=0;i<keys.length;i++)
+    {
+        keys[i] = addEventListener("click",function(){
+         score.innerText += keys[i].innerText
+        })
+    }
+
+    enter.addEventListener("click",function(){
+       if(Number(score.innerText) < Number(min.innerText)){
+        min.innerText = score.innerText;
+       }
+
+       if(Number(score.innerText) > Number(min.innerText)){
+        max.innerText = score.innerText;
+       }
+
+       score.innerText ="";
+    })
+</script>
