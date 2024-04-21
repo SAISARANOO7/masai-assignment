@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #display {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        #controls {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stopwatch</h1>
+    <div id="display">00:00:00</div>
+    <div id="controls">
+        <button onclick="startStopwatch()">Start</button>
+        <button onclick="pauseStopwatch()">Pause</button>
+        <button onclick="resetStopwatch()">Reset</button>
+    </div>
+
+    <script>
+        let timerInterval;
+        let milliseconds = 0;
+        let seconds = 0;
+        let minutes = 0;
+
+        function startStopwatch() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(updateStopwatch, 10);
+        }
+
+        function pauseStopwatch() {
+            clearInterval(timerInterval);
+        }
+
+        function resetStopwatch() {
+            clearInterval(timerInterval);
+            milliseconds = 0;
+            seconds = 0;
+            minutes = 0;
+            updateDisplay();
+        }
+
+        function updateStopwatch() {
+            milliseconds +=10;
+            if(milliseconds >= 1000) {
+                milliseconds = 0;
+                seconds++;
+                if(seconds >= 60) {
+                    seconds = 0;
+                    minutes++;
+                }
+            }
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            let displayString = formatTime(minutes) + ":" + formatTime(seconds) + ":" + formatTime(Math.floor(milliseconds / 10));
+            document.getElementById("display").textContent = displayString;
+        }
+
+        function formatTime(time) {
+            return time < 10 ? "0" + time : time;
+        }
+    </script>
+</body>
+</html>
