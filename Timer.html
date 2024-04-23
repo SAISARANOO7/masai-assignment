@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="number" id="hours" placeholder="Hours">
+        <input type="number" id="minutes" placeholder="Minutes">
+        <input type="number" id="seconds" placeholder="Seconds">
+        <br><br>
+        <button onclick="startTimer()">Start</button>
+        <button onclick="pauseTimer()">Pause</button>
+        <button onclick="resetTimer()">Reset</button>
+        <br><br>
+         
+        <h1 id="timer">00:00:00</h1>
+    </div>
+
+    <script>
+        let timer;
+        let hoursInput = document.getElementById('hours');
+        let minutesInput = document.getElementById('minutes');
+        let secondsInput = document.getElementById('seconds');
+        let timerDisplay = document.getElementById('timer');
+
+        function startTimer() {
+            let hours =parseInt(hoursInput.value) || 0;
+            let minutes =parseInt(minutesInput.value) || 0;
+            let seconds =parseInt(secondsInput.value) || 0;
+
+            let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+            timer = setInterval(() => {
+                totalSeconds--;
+                if(totalSeconds < 0) {
+                    clearInterval(timer);
+                    return;
+                }
+
+                let hrs = Math.floor(totalSeconds / 3600);
+                let mins = Math.floor((totalSeconds % 3600) / 60);
+                let secs = Math.floor(totalSeconds % 60);
+
+                timerDisplay.textContent = `${String(hrs).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+            }, 1000);
+
+        }
+            function pauseTimer () {
+                clearInterval(timer);
+            }
+            function resetTimer() {
+                clearInterval(timer);
+                hoursInput.value = '';
+                minutesInput.value = '';
+                secondsInput.value = '';
+                timerDisplay.textContent = '00:00:00';
+            }
+
+        
+
+    </script>
+    
+</body>
+</html>
