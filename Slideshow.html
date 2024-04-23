@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide Show</title>
+    <style>
+        #slideshow-container {
+            position: relative;
+            max-width: 800px;
+            margin: auto;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            } 
+        .slide {
+            display: none;
+            width: 100%;
+        }
+        .slide img {
+            width: 100%;
+            height:auto;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="slideshow-container">
+        <div class="slide">
+            <img src="https://cdn.shopify.com/s/files/1/0248/3473/6191/files/womens_tops_2_300x.jpg?v=1630508297" alt="Slide1">
+        </div>
+        <div class="slide">
+            <img src="https://cdn.shopify.com/s/files/1/0248/3473/6191/files/Mens_e3d64b92-4a9f-492a-8684-e251b08bdf93_300x.jpg?v=1630507934" alt="Slide2">
+        </div>
+        <div class="slide">
+            <img src="https://cdn.shopify.com/s/files/1/0248/3473/6191/files/Dresses_d9649021-bd86-44f6-b36f-ab83fa227028_300x.jpg?v=1615206993" alt="Slide3">
+        </div>
+        <div class="slide">
+            <img src="https://cdn.shopify.com/s/files/1/0248/3473/6191/products/muk9sjv23sb001__1_360x.jpg?v=1643980990" alt="Slide4">
+        </div>
+        <div class="slide">
+            <img src="https://cdn.shopify.com/s/files/1/0248/3473/6191/files/fENDI_1080x.jpg?v=1630506238" alt="" style="width: 100%; height: 650px;" alt="Slide5">
+        </div>
+        <div class="slide">
+            <img src="https://cdn.shopify.com/s/files/1/0248/3473/6191/products/wtlliMyyv3hcuS7RGVS0VZojPouPYfsw-25_360x.jpg?v=1607399172" alt="Slide6">
+        </div>
+        <div class="slide">
+            <img src="https://cdn.shopify.com/s/files/1/0248/3473/6191/products/1885891_360x.jpg?v=1637852340" alt="Slide7">
+        </div>
+        <div class="slide">
+            <img src="https://cdn.shopify.com/s/files/1/0248/3473/6191/products/1837892_180x.jpg?v=1644499878 180w 180h" alt="Slide8">
+        </div>
+        <div class="slide">
+            <img src="https://cdn.shopify.com/s/files/1/0248/3473/6191/products/e581e5ae-7bbc-48f8-af9b-8b5831ec82e8_360x.jpg?v=1626255170" alt="Slide9">
+        </div>
+        <div class="slide">
+            <img src="https://cdn.shopify.com/s/files/1/0248/3473/6191/products/f9dad4c9-d8f8-4ca9-a32d-2c45df5fe251_360x.jpg?v=1625182499" alt="Slide10">
+        </div>
+
+        <button class="btn" id="startStopBtn">Start</button>
+        <div class="btn-container">
+            <button class="btn" id="prevBtn">Previous</button>
+            <button class="btn" id="nextBtn">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        let intervalId;
+        const slides = document.querySelectorAll('.slide');
+        const startStopBtn = document.getElementById('startStopBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function showSlide(index) {
+            slides.forEach((slide,i) => {
+              if(i === index) {
+               slide.style.display = 'block';
+              } else {
+                slide.style.display = 'none';
+              }
+            });
+        }
+
+        function startStopSlideShow() {
+            if(intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+                startStopBtn.textContent = 'Start';
+            } else {
+                intervalId = setInterval(nextSlide, 2000);
+                startStopBtn.textContent = 'Stop';
+            }
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(currentIndex);
+        }
+
+        startStopBtn.addEventListener('click',startStopSlideShow);
+        prevBtn.addEventListener('click',() => {
+            clearInterval(intervalId);
+            intervalId = null;
+            prevSlide();
+        });
+
+        nextBtn.addEventListener('click',() => {
+            clearInterval(intervalId);
+            intervalId = null;
+            nextSlide();
+        });
+
+        showSlide(currentIndex);
+
+
+    </script>
+    
+</body>
+</html>
